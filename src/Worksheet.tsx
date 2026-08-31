@@ -1,4 +1,5 @@
 import './Worksheet.css'
+import { PrimaryWritingArea } from './PrimaryWritingArea'
 
 interface WorksheetProps {
   studentName: string
@@ -13,9 +14,13 @@ export function Worksheet({ studentName }: WorksheetProps) {
         <h2 className="ws-section__heading">
           <span className="ws-section__number">1</span> Trace your name.
         </h2>
-        <div className="ws-name-reserved ws-name-reserved--trace">{studentName}</div>
+        <div className="ws-name-writing-area">
+          <PrimaryWritingArea traceName={studentName} height={90} />
+        </div>
         <p className="ws-section__subheading">Copy your name.</p>
-        <div className="ws-name-reserved ws-name-reserved--copy" />
+        <div className="ws-name-writing-area">
+          <PrimaryWritingArea height={90} />
+        </div>
       </section>
 
       {/* ── Section 2: Date ─────────────────────────────────────────── */}
