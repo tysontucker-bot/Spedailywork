@@ -46,7 +46,7 @@
   /* Layout for sections */
   display: flex;
   flex-direction: column;
-  padding: 24px 32px 16px;
+  padding: 24px 32px 18px;
   gap: 0;
   overflow: hidden;
 }
@@ -55,7 +55,7 @@
 .ws-section {
   border-top: 2px solid #000;
   padding-top: 8px;
-  padding-bottom: 8px;
+  padding-bottom: 7px;
 }
 
 .ws-section__heading {
@@ -102,19 +102,50 @@
   flex: 0 0 auto;
 }
 
-.ws-date-reserved {
+.ws-date-writing-area {
   margin-left: 24px;
-  border: 1px dashed #aaa;
-  background: #fafafa;
+  margin-bottom: 2px;
 }
 
-.ws-date-reserved--trace {
-  height: 40px;
-  margin-bottom: 4px;
+.ws-calendar {
+  margin-left: 24px;
+  border: 1.5px solid #000;
+  padding: 6px 8px 8px;
 }
 
-.ws-date-reserved--calendar {
-  height: 120px;
+.ws-calendar__month {
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.ws-calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-top: 1px solid #000;
+  border-left: 1px solid #000;
+}
+
+.ws-calendar__weekday,
+.ws-calendar__day {
+  min-height: 22px;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+.ws-calendar__weekday {
+  min-height: 18px;
+  font-weight: bold;
+}
+
+.ws-calendar__day--selected {
+  outline: 2px solid #000;
+  outline-offset: -2px;
 }
 
 /* == Section 3: CVC circle ========================================= */
@@ -124,15 +155,54 @@
 
 .ws-cvc-row {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   margin-left: 24px;
 }
 
 .ws-cvc-activity {
   flex: 1;
-  height: 130px;
-  border: 1px dashed #aaa;
-  background: #fafafa;
+  border: 1.5px solid #000;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ws-cvc-activity__picture {
+  flex: 1 1 auto;
+  min-height: 118px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.ws-cvc-activity__image {
+  max-width: 100%;
+  max-height: 100px;
+  object-fit: contain;
+}
+
+.ws-cvc-activity__choices {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1.5px solid #000;
+}
+
+.ws-cvc-activity__choice {
+  min-height: 34px;
+  border-right: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: lowercase;
+}
+
+.ws-cvc-activity__choice:last-child {
+  border-right: none;
 }
 
 /* == Section 4: Trace-and-copy ===================================== */
@@ -154,32 +224,53 @@
 
 .ws-trace-copy-activity {
   flex: 1 1 0;
-  border: 1px dashed #aaa;
-  background: #fafafa;
   min-height: 0;
+  display: grid;
+  align-items: center;
+  gap: 10px;
+  grid-template-columns: 84px 190px minmax(0, 1fr);
+}
+
+.ws-trace-copy-activity__picture {
+  height: 78px;
+  border: 1.5px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  text-align: center;
+  font-size: 11px;
+}
+
+.ws-trace-copy-activity__image {
+  max-width: 100%;
+  max-height: 62px;
+  object-fit: contain;
+}
+
+.ws-trace-copy-activity__trace,
+.ws-trace-copy-activity__copy {
+  min-width: 0;
+}
+
+.worksheet__attribution {
+  position: absolute;
+  right: 10px;
+  bottom: 4px;
+  font-size: 9px;
+  color: #333;
 }
 
 /* == Print styles ================================================== */
 @media print {
-  /* Hide everything... */
-  body > * {
-    display: none !important;
-  }
-
-  /* ...then show only the worksheet. */
   .worksheet {
     display: flex !important;
-
-    /* Reset all screen-only chrome */
     position: static !important;
     margin: 0 !important;
     border: none !important;
     box-shadow: none !important;
-
-    /* Fill exactly one US Letter page */
     width: 8.5in !important;
     height: 11in !important;
-
     page-break-after: avoid;
   }
 
