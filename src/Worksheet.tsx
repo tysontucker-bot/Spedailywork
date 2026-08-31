@@ -1,6 +1,10 @@
 import './Worksheet.css'
 
-export function Worksheet() {
+interface WorksheetProps {
+  studentName: string
+}
+
+export function Worksheet({ studentName }: WorksheetProps) {
   return (
     <div className="worksheet">
 
@@ -9,7 +13,7 @@ export function Worksheet() {
         <h2 className="ws-section__heading">
           <span className="ws-section__number">1</span> Trace your name.
         </h2>
-        <div className="ws-name-reserved ws-name-reserved--trace" />
+        <div className="ws-name-reserved ws-name-reserved--trace">{studentName}</div>
         <p className="ws-section__subheading">Copy your name.</p>
         <div className="ws-name-reserved ws-name-reserved--copy" />
       </section>
