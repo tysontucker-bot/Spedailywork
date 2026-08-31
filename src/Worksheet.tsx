@@ -3,9 +3,17 @@ import { PrimaryWritingArea } from './PrimaryWritingArea'
 
 interface WorksheetProps {
   studentName: string
+  date: string
 }
 
-export function Worksheet({ studentName }: WorksheetProps) {
+function formatDate(isoDate: string): string {
+  if (!isoDate) return ''
+  const [year, month, day] = isoDate.split('-').map(Number)
+  const d = new Date(year, month - 1, day)
+  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })
+}
+
+export function Worksheet({ studentName, date }: WorksheetProps) {
   return (
     <div className="worksheet">
 
@@ -28,7 +36,7 @@ export function Worksheet({ studentName }: WorksheetProps) {
         <h2 className="ws-section__heading">
           <span className="ws-section__number">2</span> Trace the date.
         </h2>
-        <div className="ws-date-reserved ws-date-reserved--trace" />
+        <div className="ws-date-reserved ws-date-reserved--trace">{formatDate(date)}</div>
         <p className="ws-section__subheading">Mark the date on the calendar.</p>
         <div className="ws-date-reserved ws-date-reserved--calendar" />
       </section>
