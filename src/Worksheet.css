@@ -1,4 +1,4 @@
-/* ── Teacher interface ───────────────────────────────────────────── */
+/* == Teacher interface ============================================= */
 .teacher-interface {
   min-height: 100vh;
   background: #e0e4ea;
@@ -25,11 +25,11 @@
   font-size: 0.95rem;
 }
 
-/* ── Worksheet canvas ────────────────────────────────────────────── */
+/* == Worksheet canvas ============================================== */
 /*
  * US Letter at 96 dpi screen resolution:
- *   8.5 in × 96 dpi = 816 px
- *  11   in × 96 dpi = 1056 px
+ *   8.5 in x 96 dpi = 816 px
+ *  11   in x 96 dpi = 1056 px
  *
  * The canvas is fixed in size.  The teacher interface scrolls around
  * it; the worksheet itself never stretches or shrinks.
@@ -40,25 +40,149 @@
   flex-shrink: 0;
   background: #ffffff;
   border: 1px solid #000000;
-  position: relative;   /* coordinate origin for future child elements */
+  position: relative;
   box-sizing: border-box;
+
+  /* Layout for sections */
+  display: flex;
+  flex-direction: column;
+  padding: 24px 32px 16px;
+  gap: 0;
+  overflow: hidden;
 }
 
-/* ── Print styles ────────────────────────────────────────────────── */
+/* == Section base ================================================== */
+.ws-section {
+  border-top: 2px solid #000;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.ws-section__heading {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000;
+}
+
+.ws-section__number {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+  border: 2px solid #000;
+  border-radius: 50%;
+  font-size: 11px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.ws-section__subheading {
+  margin: 6px 0 4px;
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000;
+  padding-left: 24px;
+}
+
+/* == Section 1: Name =============================================== */
+.ws-section--name {
+  flex: 0 0 auto;
+}
+
+.ws-name-reserved {
+  margin-left: 24px;
+  border-bottom: 1px dashed #aaa;
+  background: #fafafa;
+}
+
+.ws-name-reserved--trace {
+  height: 52px;
+  margin-bottom: 4px;
+}
+
+.ws-name-reserved--copy {
+  height: 52px;
+}
+
+/* == Section 2: Date =============================================== */
+.ws-section--date {
+  flex: 0 0 auto;
+}
+
+.ws-date-reserved {
+  margin-left: 24px;
+  border: 1px dashed #aaa;
+  background: #fafafa;
+}
+
+.ws-date-reserved--trace {
+  height: 40px;
+  margin-bottom: 4px;
+}
+
+.ws-date-reserved--calendar {
+  height: 120px;
+}
+
+/* == Section 3: CVC circle ========================================= */
+.ws-section--cvc {
+  flex: 0 0 auto;
+}
+
+.ws-cvc-row {
+  display: flex;
+  gap: 12px;
+  margin-left: 24px;
+}
+
+.ws-cvc-activity {
+  flex: 1;
+  height: 130px;
+  border: 1px dashed #aaa;
+  background: #fafafa;
+}
+
+/* == Section 4: Trace-and-copy ===================================== */
+.ws-section--trace-copy {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.ws-trace-copy-list {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: 24px;
+  min-height: 0;
+}
+
+.ws-trace-copy-activity {
+  flex: 1 1 0;
+  border: 1px dashed #aaa;
+  background: #fafafa;
+  min-height: 0;
+}
+
+/* == Print styles ================================================== */
 @media print {
-  /* Hide everything… */
+  /* Hide everything... */
   body > * {
     display: none !important;
   }
 
-  /* …then show only the worksheet. */
+  /* ...then show only the worksheet. */
   .worksheet {
-    display: block !important;
+    display: flex !important;
 
     /* Reset all screen-only chrome */
     position: static !important;
     margin: 0 !important;
-    padding: 0 !important;
     border: none !important;
     box-shadow: none !important;
 
