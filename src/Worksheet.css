@@ -1,0 +1,76 @@
+/* ── Teacher interface ───────────────────────────────────────────── */
+.teacher-interface {
+  min-height: 100vh;
+  background: #e0e4ea;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  gap: 1.5rem;
+}
+
+.teacher-interface__header {
+  text-align: center;
+  color: #2c5f8a;
+}
+
+.teacher-interface__header h1 {
+  margin: 0 0 0.25rem;
+  font-size: 1.6rem;
+}
+
+.teacher-interface__header p {
+  margin: 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* ── Worksheet canvas ────────────────────────────────────────────── */
+/*
+ * US Letter at 96 dpi screen resolution:
+ *   8.5 in × 96 dpi = 816 px
+ *  11   in × 96 dpi = 1056 px
+ *
+ * The canvas is fixed in size.  The teacher interface scrolls around
+ * it; the worksheet itself never stretches or shrinks.
+ */
+.worksheet {
+  width: 816px;
+  height: 1056px;
+  flex-shrink: 0;
+  background: #ffffff;
+  border: 1px solid #000000;
+  position: relative;   /* coordinate origin for future child elements */
+  box-sizing: border-box;
+}
+
+/* ── Print styles ────────────────────────────────────────────────── */
+@media print {
+  /* Hide everything… */
+  body > * {
+    display: none !important;
+  }
+
+  /* …then show only the worksheet. */
+  .worksheet {
+    display: block !important;
+
+    /* Reset all screen-only chrome */
+    position: static !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+
+    /* Fill exactly one US Letter page */
+    width: 8.5in !important;
+    height: 11in !important;
+
+    page-break-after: avoid;
+  }
+
+  @page {
+    size: letter portrait;
+    margin: 0;
+  }
+}
