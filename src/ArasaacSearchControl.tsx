@@ -7,7 +7,7 @@ interface ArasaacKeyword {
 }
 
 interface ArasaacSearchResponseItem {
-  id?: number
+  _id?: number
   desc?: string
   keywords?: ArasaacKeyword[]
 }
@@ -29,7 +29,7 @@ const ARASAAC_API_BASE = 'https://api.arasaac.org/v1'
 function optionLabel(item: ArasaacSearchResponseItem): string {
   const keyword = item.keywords?.find(entry => entry.keyword?.trim())?.keyword?.trim()
   const description = item.desc?.trim()
-  return keyword || description || `Pictogram ${item.id ?? ''}`.trim()
+  return keyword || description || `Pictogram ${item._id ?? ''}`.trim()
 }
 
 export function ArasaacSearchControl({
@@ -87,7 +87,7 @@ export function ArasaacSearchControl({
         throw new Error(`ARASAAC returned ${response.status}.`)
       }
 
-      const rawResults = (await response.json()) as ArasaacSearchResponseItem[]
+      const rawResults = await response.json()
       console.log('ARASAAC RAW RESPONSE:', rawResults)
       console.log('ARASAAC RESPONSE TYPE:', typeof rawResults)
       console.log(
@@ -98,27 +98,31 @@ export function ArasaacSearchControl({
         console.log('ARASAAC RESULT COUNT:', rawResults.length)
         console.log('ARASAAC FIRST RESULT:', rawResults[0])
       }
+
+      if (!Array.isArray(rawResults)) {
+        throw new Error('Invalid ARASAAC response.')
+      }
+
       const uniqueResults = Array.from(
         new Map(
           rawResults
-            .filter(item => typeof item.id === 'number')
-            .map(item => [item.id as number, { id: item.id as number, label: optionLabel(item) }]),
+            .filter((item): item is ArasaacSearchResponseItem & { _id: number } => typeof item?._id === 'number')
+            .map(item => [item._id, { id: item._id, label: optionLabel(item) }]),
         ).values(),
       ).slice(0, 12)
 
       if (uniqueResults.length === 0) {
-        setStatus('error')
-        setSearchError(`No ARASAAC pictograms were found for "${query}".`)
+        setStatus('success')
+        setSearchError('No ARASAAC pictograms found.')
         setResults([])
         return
       }
 
       setResults(uniqueResults)
       setStatus('success')
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown ARASAAC error.'
+    } catch {
       setStatus('error')
-      setSearchError(`ARASAAC search failed. ${message}`)
+      setSearchError('ARASAAC could not be reached.')
       setResults([])
     }
   }
