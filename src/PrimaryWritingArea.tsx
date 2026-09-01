@@ -20,7 +20,7 @@ interface PrimaryWritingAreaProps {
 export function PrimaryWritingArea({
   traceName,
   traceText,
-  height = 80,
+  height = 72,
   align = 'center',
   horizontalPadding = 12,
   traceVariant = 'solid',
@@ -28,22 +28,11 @@ export function PrimaryWritingArea({
   const text = traceText ?? traceName
   const viewWidth = 1000
   const padding = horizontalPadding
-  const topY = 10
-  const midY = height / 2
-  const baseY = height - 10
-
-  const xHeight = baseY - midY
-  const fontSize = Math.round(xHeight / 0.52)
-  const availableWidth = viewWidth - padding * 2
-  const textWidthUnits = text
-    ? Math.max(
-      1,
-      Array.from(text).reduce((sum, character) => sum + (character === ' ' ? 0.35 : 0.62), 0),
-    )
-    : 1
-  const scaledFontSize = text
-    ? Math.max(18, Math.min(fontSize, Math.floor((availableWidth - 8) / (textWidthUnits * 1.02))))
-    : fontSize
+  const lineGap = height / 3
+  const topY = lineGap / 2
+  const midY = topY + lineGap
+  const baseY = midY + lineGap
+  const traceFontSize = 48
   const textX = align === 'left' ? padding + 8 : viewWidth / 2
   const isDotted = traceVariant === 'dotted'
 
@@ -84,7 +73,7 @@ export function PrimaryWritingArea({
           y={baseY}
           textAnchor={align === 'left' ? 'start' : 'middle'}
           dominantBaseline="alphabetic"
-          fontSize={scaledFontSize}
+          fontSize={traceFontSize}
           fontFamily="'Comic Sans MS', 'Chalkboard SE', cursive"
           fontWeight="normal"
           fill={isDotted ? 'rgba(0,0,0,0.08)' : 'rgba(0,0,0,0.18)'}

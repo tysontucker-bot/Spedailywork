@@ -84,13 +84,13 @@ function TraceCopyRow({ activity, index }: { activity: TraceCopyActivity, index:
       <div className="ws-trace-copy-activity__trace">
         <PrimaryWritingArea
           align="left"
-          height={110}
+          height={72}
           traceText={activity.word}
           traceVariant="dotted"
         />
       </div>
       <div className="ws-trace-copy-activity__copy">
-        <PrimaryWritingArea align="left" height={110} />
+        <PrimaryWritingArea align="left" height={72} />
       </div>
     </div>
   )
@@ -113,11 +113,11 @@ export function Worksheet({
           <span className="ws-section__number">1</span> Trace your name.
         </h2>
         <div className="ws-name-writing-area">
-          <PrimaryWritingArea traceName={studentName} height={90} />
+          <PrimaryWritingArea traceName={studentName} height={72} />
         </div>
         <p className="ws-section__subheading">Copy your name.</p>
         <div className="ws-name-writing-area">
-          <PrimaryWritingArea height={90} />
+          <PrimaryWritingArea height={72} />
         </div>
       </section>
 
@@ -128,7 +128,7 @@ export function Worksheet({
         </h2>
         <div className="ws-date-writing-area">
           <PrimaryWritingArea
-            height={74}
+            height={72}
             traceText={calendar.monthDay}
           />
         </div>
