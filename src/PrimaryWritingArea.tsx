@@ -87,8 +87,8 @@ export function PrimaryWritingArea({
           fontSize={scaledFontSize}
           fontFamily="'Comic Sans MS', 'Chalkboard SE', cursive"
           fontWeight="normal"
-          fill={isDotted ? 'rgba(0,0,0,0.04)' : 'rgba(0,0,0,0.18)'}
-          stroke={isDotted ? 'rgba(0,0,0,0.24)' : 'rgba(0,0,0,0.10)'}
+          fill={isDotted ? 'rgba(0,0,0,0.08)' : 'rgba(0,0,0,0.18)'}
+          stroke={isDotted ? 'rgba(0,0,0,0.38)' : 'rgba(0,0,0,0.10)'}
           strokeWidth={isDotted ? 1.15 : 0.5}
           strokeDasharray={isDotted ? '1.5 3.2' : undefined}
           strokeLinecap={isDotted ? 'round' : undefined}
