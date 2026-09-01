@@ -74,21 +74,30 @@ export function ArasaacSearchControl({
 
     try {
       const url = `${ARASAAC_API_BASE}/pictograms/en/bestsearch/${encodeURIComponent(query)}`
-      console.log('ARASAAC URL:', url)
+      console.log('ARASAAC REQUEST URL:', url)
       const response = await fetch(url)
+      console.log('ARASAAC STATUS:', response.status)
+      console.log('ARASAAC OK:', response.ok)
+      console.log(
+        'ARASAAC CONTENT TYPE:',
+        response.headers.get('content-type'),
+      )
 
       if (!response.ok) {
         throw new Error(`ARASAAC returned ${response.status}.`)
       }
 
       const rawResults = (await response.json()) as ArasaacSearchResponseItem[]
-      console.log('ARASAAC raw response:', rawResults)
-      console.log('ARASAAC raw response is array:', Array.isArray(rawResults))
-      console.log('ARASAAC raw response typeof:', typeof rawResults)
+      console.log('ARASAAC RAW RESPONSE:', rawResults)
+      console.log('ARASAAC RESPONSE TYPE:', typeof rawResults)
+      console.log(
+        'ARASAAC IS ARRAY:',
+        Array.isArray(rawResults),
+      )
       if (Array.isArray(rawResults)) {
-        console.log('ARASAAC raw response length:', rawResults.length)
+        console.log('ARASAAC RESULT COUNT:', rawResults.length)
+        console.log('ARASAAC FIRST RESULT:', rawResults[0])
       }
-      console.log('ARASAAC raw response first item:', Array.isArray(rawResults) ? rawResults[0] : undefined)
       const uniqueResults = Array.from(
         new Map(
           rawResults
