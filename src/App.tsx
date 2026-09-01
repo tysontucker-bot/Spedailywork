@@ -183,6 +183,13 @@ function App() {
           </section>
         )}
       </div>
+      <button
+        className="print-button no-print"
+        onClick={() => window.print()}
+        type="button"
+      >
+        Print Worksheet
+      </button>
       <Worksheet
         cvcActivities={worksheetData.cvcActivities}
         date={date}

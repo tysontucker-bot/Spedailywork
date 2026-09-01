@@ -265,16 +265,10 @@
   .worksheet {
     display: flex !important;
     position: static !important;
-    margin: 0 !important;
-    border: none !important;
-    box-shadow: none !important;
-    width: 8.5in !important;
-    height: 11in !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
     page-break-after: avoid;
-  }
-
-  @page {
-    size: letter portrait;
-    margin: 0;
+    page-break-inside: avoid;
   }
 }
