@@ -73,13 +73,22 @@ export function ArasaacSearchControl({
     setSearchError('')
 
     try {
-      const response = await fetch(`${ARASAAC_API_BASE}/pictograms/en/bestsearch/${encodeURIComponent(query)}`)
+      const url = `${ARASAAC_API_BASE}/pictograms/en/bestsearch/${encodeURIComponent(query)}`
+      console.log('ARASAAC URL:', url)
+      const response = await fetch(url)
 
       if (!response.ok) {
         throw new Error(`ARASAAC returned ${response.status}.`)
       }
 
       const rawResults = (await response.json()) as ArasaacSearchResponseItem[]
+      console.log('ARASAAC raw response:', rawResults)
+      console.log('ARASAAC raw response is array:', Array.isArray(rawResults))
+      console.log('ARASAAC raw response typeof:', typeof rawResults)
+      if (Array.isArray(rawResults)) {
+        console.log('ARASAAC raw response length:', rawResults.length)
+      }
+      console.log('ARASAAC raw response first item:', Array.isArray(rawResults) ? rawResults[0] : undefined)
       const uniqueResults = Array.from(
         new Map(
           rawResults
