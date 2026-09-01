@@ -128,10 +128,8 @@ export function Worksheet({
         </h2>
         <div className="ws-date-writing-area">
           <PrimaryWritingArea
-            align="left"
             height={74}
             traceText={calendar.monthDay}
-            traceVariant="dotted"
           />
         </div>
         <p className="ws-section__subheading">Mark the date on the calendar.</p>
