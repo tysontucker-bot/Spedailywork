@@ -206,5 +206,5 @@ export function buildCvcChoices(value: string, seedKey: string): string[] {
 }
 
 export function getArasaacImageUrl(id: number): string {
-  return `https://static.arasaac.org/pictograms/${id}/${id}_nocolor_500.png`
+  return `https://static.arasaac.org/pictograms/${id}/${id}_500.png`
 }
