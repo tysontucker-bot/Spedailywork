@@ -46,7 +46,7 @@
   /* Layout for sections */
   display: flex;
   flex-direction: column;
-  padding: 24px 32px 18px;
+  padding: 16px 28px 10px;
   gap: 0;
   overflow: hidden;
 }
@@ -54,12 +54,12 @@
 /* == Section base ================================================== */
 .ws-section {
   border-top: 2px solid #000;
-  padding-top: 8px;
-  padding-bottom: 7px;
+  padding-top: 5px;
+  padding-bottom: 4px;
 }
 
 .ws-section__heading {
-  margin: 0 0 6px;
+  margin: 0 0 4px;
   font-size: 13px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
@@ -80,7 +80,7 @@
 }
 
 .ws-section__subheading {
-  margin: 6px 0 4px;
+  margin: 4px 0 3px;
   font-size: 13px;
   font-family: Arial, Helvetica, sans-serif;
   color: #000;
@@ -94,7 +94,7 @@
 
 .ws-name-writing-area {
   margin-left: 24px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 /* == Section 2: Date =============================================== */
@@ -104,20 +104,20 @@
 
 .ws-date-writing-area {
   margin-left: 24px;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 }
 
 .ws-calendar {
   margin-left: 24px;
   border: 1.5px solid #000;
-  padding: 6px 8px 8px;
+  padding: 4px 8px 6px;
 }
 
 .ws-calendar__month {
   text-align: center;
   font-size: 12px;
   font-weight: bold;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .ws-calendar__grid {
@@ -129,7 +129,7 @@
 
 .ws-calendar__weekday,
 .ws-calendar__day {
-  min-height: 22px;
+  min-height: 20px;
   border-right: 1px solid #000;
   border-bottom: 1px solid #000;
   display: flex;
@@ -139,7 +139,7 @@
 }
 
 .ws-calendar__weekday {
-  min-height: 18px;
+  min-height: 16px;
   font-weight: bold;
 }
 
@@ -217,16 +217,16 @@
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   margin-left: 24px;
   min-height: 0;
 }
 
 .ws-trace-copy-activity {
-  flex: 1 1 0;
+  flex: 0 0 auto;
   min-height: 0;
   display: grid;
-  align-items: center;
+  align-items: start;
   gap: 10px;
   grid-template-columns: 84px minmax(0, 1fr) minmax(0, 1fr);
 }
