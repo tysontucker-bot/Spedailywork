@@ -20,7 +20,7 @@ interface PrimaryWritingAreaProps {
 export function PrimaryWritingArea({
   traceName,
   traceText,
-  height = 72,
+  height = 96,
   align = 'center',
   horizontalPadding = 12,
   traceVariant = 'solid',
@@ -32,7 +32,7 @@ export function PrimaryWritingArea({
   const topY = lineGap / 2
   const midY = topY + lineGap
   const baseY = midY + lineGap
-  const traceFontSize = 48
+  const traceFontSize = 64
   const textX = align === 'left' ? padding + 8 : viewWidth / 2
   const isDotted = traceVariant === 'dotted'
 
