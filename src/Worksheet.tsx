@@ -90,7 +90,7 @@ function TraceCopyRow({ activity, index }: { activity: TraceCopyActivity, index:
         />
       </div>
       <div className="ws-trace-copy-activity__copy">
-        <PrimaryWritingArea align="left" height={72} />
+        <PrimaryWritingArea align="left" height={144} />
       </div>
     </div>
   )
