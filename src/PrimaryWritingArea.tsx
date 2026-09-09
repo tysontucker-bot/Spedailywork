@@ -1,3 +1,5 @@
+import { useLayoutEffect, useRef, useState } from 'react'
+
 interface PrimaryWritingAreaProps {
   traceName?: string
   traceText?: string
@@ -21,21 +23,44 @@ interface PrimaryWritingAreaProps {
 export function PrimaryWritingArea({
   traceName,
   traceText,
-  height = 72,
+  height = 96,
   lineCount = 1,
   align = 'center',
   horizontalPadding = 12,
   traceVariant = 'solid',
 }: PrimaryWritingAreaProps) {
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const [viewWidth, setViewWidth] = useState(0)
   const text = traceText ?? traceName
-  const viewWidth = 1000
-  const padding = horizontalPadding
   const normalizedLineCount = Math.max(1, Math.floor(lineCount))
+  const padding = Math.min(horizontalPadding, Math.max(0, (viewWidth / 2) - 1))
   const groupHeight = height / normalizedLineCount
   const lineGap = groupHeight / 3
-  const traceFontSize = 48
+  const traceFontSize = 64
   const textX = align === 'left' ? padding + 8 : viewWidth / 2
   const isDotted = traceVariant === 'dotted'
+
+  useLayoutEffect(() => {
+   const element = containerRef.current
+
+   if (!element) {
+     return
+   }
+
+   const updateWidth = () => {
+     setViewWidth(element.getBoundingClientRect().width)
+   }
+
+   updateWidth()
+
+   const observer = new ResizeObserver(updateWidth)
+   observer.observe(element)
+
+   return () => {
+     observer.disconnect()
+   }
+  }, [])
+
   const lineGroups = Array.from({ length: normalizedLineCount }, (_, index) => {
    const groupTop = index * groupHeight
    const topY = groupTop + lineGap / 2
@@ -50,52 +75,56 @@ export function PrimaryWritingArea({
   })
 
   return (
-   <svg
-      width="100%"
-      height={height}
-      viewBox={`0 0 ${viewWidth} ${height}`}
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ display: 'block', overflow: 'visible' }}
-    >
-      {lineGroups.map(({ topY, midY, baseY }, index) => (
-        <g key={`primary-line-${index}`}>
-          <line
-            x1={padding} y1={topY}
-            x2={viewWidth - padding} y2={topY}
-            stroke="#555" strokeWidth={1.2}
-          />
-          <line
-            x1={padding} y1={midY}
-            x2={viewWidth - padding} y2={midY}
-            stroke="#888" strokeWidth={1}
-            strokeDasharray="6 4"
-          />
-          <line
-            x1={padding} y1={baseY}
-            x2={viewWidth - padding} y2={baseY}
-            stroke="#555" strokeWidth={1.2}
-          />
-          {text && (
-            <text
-              x={textX}
-              y={baseY}
-              textAnchor={align === 'left' ? 'start' : 'middle'}
-              dominantBaseline="alphabetic"
-              fontSize={traceFontSize}
-              fontFamily="'Comic Sans MS', 'Chalkboard SE', cursive"
-              fontWeight="normal"
-              fill={isDotted ? 'rgba(0,0,0,0.08)' : 'rgba(0,0,0,0.18)'}
-              stroke={isDotted ? 'rgba(0,0,0,0.38)' : 'rgba(0,0,0,0.10)'}
-              strokeWidth={isDotted ? 1.15 : 0.5}
-              strokeDasharray={isDotted ? '1.5 3.2' : undefined}
-              strokeLinecap={isDotted ? 'round' : undefined}
-              style={{ userSelect: 'none' }}
-            >
-              {text}
-            </text>
-          )}
-        </g>
-      ))}
-    </svg>
+   <div ref={containerRef} style={{ width: '100%', height }}>
+     {viewWidth > 0 && (
+       <svg
+         width={viewWidth}
+         height={height}
+         viewBox={`0 0 ${viewWidth} ${height}`}
+         xmlns="http://www.w3.org/2000/svg"
+         style={{ display: 'block', overflow: 'visible' }}
+       >
+         {lineGroups.map(({ topY, midY, baseY }, index) => (
+           <g key={`primary-line-${index}`}>
+             <line
+               x1={padding} y1={topY}
+               x2={viewWidth - padding} y2={topY}
+               stroke="#555" strokeWidth={1.2}
+             />
+             <line
+               x1={padding} y1={midY}
+               x2={viewWidth - padding} y2={midY}
+               stroke="#888" strokeWidth={1}
+               strokeDasharray="6 4"
+             />
+             <line
+               x1={padding} y1={baseY}
+               x2={viewWidth - padding} y2={baseY}
+               stroke="#555" strokeWidth={1.2}
+             />
+             {text && (
+               <text
+                 x={textX}
+                 y={baseY}
+                 textAnchor={align === 'left' ? 'start' : 'middle'}
+                 dominantBaseline="alphabetic"
+                 fontSize={traceFontSize}
+                 fontFamily="'Comic Sans MS', 'Chalkboard SE', cursive"
+                 fontWeight="normal"
+                 fill={isDotted ? 'rgba(0,0,0,0.08)' : 'rgba(0,0,0,0.18)'}
+                 stroke={isDotted ? 'rgba(0,0,0,0.38)' : 'rgba(0,0,0,0.10)'}
+                 strokeWidth={isDotted ? 1.15 : 0.5}
+                 strokeDasharray={isDotted ? '1.5 3.2' : undefined}
+                 strokeLinecap={isDotted ? 'round' : undefined}
+                 style={{ userSelect: 'none' }}
+               >
+                 {text}
+               </text>
+             )}
+           </g>
+         ))}
+       </svg>
+     )}
+   </div>
   )
 }
