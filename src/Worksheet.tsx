@@ -84,14 +84,13 @@ function TraceCopyRow({ activity, index }: { activity: TraceCopyActivity, index:
       <div className="ws-trace-copy-activity__trace">
         <PrimaryWritingArea
           align="left"
-          height={144}
-          lineCount={2}
+          height={72}
           traceText={activity.word}
           traceVariant="dotted"
         />
       </div>
       <div className="ws-trace-copy-activity__copy">
-        <PrimaryWritingArea align="left" height={144} lineCount={2} />
+        <PrimaryWritingArea align="left" height={72} />
       </div>
     </div>
   )
